@@ -47,7 +47,8 @@ export const createBooking = async (req, res, next) => {
       preferredTime,
       learningGoal,
       additionalNotes: additionalNotes || '',
-      status: 'Pending'
+      status: 'Pending',
+      paymentStatus: 'Unpaid'
     });
 
     // Notify Teacher
@@ -210,6 +211,50 @@ export const cancelBooking = async (req, res, next) => {
     await booking.save();
 
     res.json({ success: true, message: 'Booking cancelled successfully', booking });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Process mock payment for booking fee
+// @route   PUT /api/bookings/:id/pay
+// @access  Private (Student)
+export const payBooking = async (req, res, next) => {
+  try {
+    const booking = await Booking.findById(req.params.id)
+      .populate('student')
+      .populate('teacher');
+      
+    if (!booking) {
+      res.status(404);
+      throw new Error('Booking not found');
+    }
+
+    const student = await Student.findOne({ user: req.user._id });
+    if (!student || booking.student._id.toString() !== student._id.toString()) {
+      res.status(403);
+      throw new Error('Not authorized to make payment for this booking');
+    }
+
+    const { paymentMethod, transactionId } = req.body;
+    booking.paymentStatus = 'Paid';
+    booking.paymentMethod = paymentMethod || 'Mock Card';
+    booking.transactionId = transactionId || `TXN-${Date.now()}`;
+    booking.paymentDate = new Date().toISOString();
+
+    await booking.save();
+
+    // Notify Teacher about payment receipt
+    await sendNotification(req, {
+      recipient: booking.teacher.user,
+      sender: req.user._id,
+      type: 'BookingPaid',
+      title: 'Payment Received',
+      message: `${student.fullName} has paid the course fee for booking ref: ${booking._id.toString().substring(0, 8)}.`,
+      data: { bookingId: booking._id }
+    });
+
+    res.json({ success: true, message: 'Payment processed successfully', booking });
   } catch (error) {
     next(error);
   }

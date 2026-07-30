@@ -4,7 +4,8 @@ import {
   getBookings,
   acceptBooking,
   rejectBooking,
-  cancelBooking
+  cancelBooking,
+  payBooking
 } from '../controllers/bookingController.js';
 import { protect } from '../middleware/authMiddleware.js';
 import { authorize } from '../middleware/roleMiddleware.js';
@@ -18,5 +19,6 @@ router.route('/')
 router.put('/:id/accept', protect, authorize('teacher'), acceptBooking);
 router.put('/:id/reject', protect, authorize('teacher'), rejectBooking);
 router.put('/:id/cancel', protect, authorize('student'), cancelBooking);
+router.put('/:id/pay', protect, authorize('student'), payBooking);
 
 export default router;
