@@ -248,7 +248,7 @@ export const StudentDashboard = () => {
                       {course.subject} • {course.difficultyLevel}
                     </p>
                     <span className="text-xs font-bold text-primary dark:text-accent mt-1 block">
-                      ${course.fee}
+                      ₹{course.fee}
                     </span>
                   </div>
                 </div>

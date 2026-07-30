@@ -187,7 +187,7 @@ export const StudentCourses = () => {
               {/* Action row */}
               <div className="flex justify-between items-center mt-5 pt-3 border-t border-slate-200/40">
                 <span className="text-sm font-black text-primary dark:text-accent">
-                  ${course.fee}
+                  ₹{course.fee}
                 </span>
 
                 <button
@@ -312,7 +312,7 @@ export const StudentCourses = () => {
                 <div className="pt-3 border-t border-slate-200/40 flex justify-between items-center text-xs">
                   <div>
                     <span className="text-[10px] text-slate-500 block">Class Registration Fee</span>
-                    <span className="text-base font-black text-primary dark:text-accent">${selectedCourse.fee}</span>
+                    <span className="text-base font-black text-primary dark:text-accent">₹{selectedCourse.fee}</span>
                   </div>
                   <button
                     onClick={() => {

@@ -194,7 +194,7 @@ export const TeacherProfileDetail = () => {
 
                     <div className="flex justify-between items-center mt-4 pt-2 border-t border-slate-200/30">
                       <span className="text-xs font-black text-primary dark:text-accent">
-                        ${course.fee}
+                        ₹{course.fee}
                       </span>
                       <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-bold">
                         {course.difficultyLevel}
@@ -283,7 +283,7 @@ export const TeacherProfileDetail = () => {
                 <FiDollarSign className="w-4 h-4" />
                 <span>Hourly Mentorship Fee</span>
               </span>
-              <span className="font-bold text-slate-850 dark:text-white">${teacher.fees}/hr</span>
+              <span className="font-bold text-slate-850 dark:text-white">₹{teacher.fees}/hr</span>
             </div>
 
             <div className="flex justify-between items-center">
@@ -359,7 +359,7 @@ export const TeacherProfileDetail = () => {
                       >
                         <option value="">No Course (Custom mentorship request)</option>
                         {courses.map(c => (
-                          <option key={c._id} value={c._id}>{c.title} (${c.fee})</option>
+                          <option key={c._id} value={c._id}>{c.title} (₹{c.fee})</option>
                         ))}
                       </select>
                     </div>

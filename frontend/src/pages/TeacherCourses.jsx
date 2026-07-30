@@ -266,7 +266,7 @@ export const TeacherCourses = () => {
               <div className="mt-5 pt-3 border-t border-slate-200/45 flex flex-col gap-3">
                 <div className="flex justify-between items-center text-xs">
                   <span className="font-black text-slate-800 dark:text-white">
-                    ${course.fee}
+                    ₹{course.fee}
                   </span>
                   <span className="text-[10px] bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded font-bold">
                     {course.difficultyLevel}
@@ -398,7 +398,7 @@ export const TeacherCourses = () => {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="font-bold text-slate-650 dark:text-slate-400">Course Fee ($) *</label>
+                      <label className="font-bold text-slate-650 dark:text-slate-400">Course Fee (₹) *</label>
                       <input
                         type="number"
                         required

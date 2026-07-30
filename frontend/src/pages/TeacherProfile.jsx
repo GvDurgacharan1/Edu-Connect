@@ -351,7 +351,7 @@ export const TeacherProfile = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label className="text-xs font-bold text-slate-655 dark:text-slate-400">Hourly Session Fees ($) *</label>
+              <label className="text-xs font-bold text-slate-655 dark:text-slate-400">Hourly Session Fees (₹) *</label>
               <div className="relative">
                 <FiDollarSign className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4" />
                 <input

@@ -79,7 +79,7 @@ export const StudentBookings = () => {
         paymentMethod: payMethod.toUpperCase()
       });
       if (res.data.success) {
-        showToast('Payment Successful!', `Paid $${payingBooking.course?.fee || payingBooking.teacher?.fees || 50} successfully.`, 'success');
+        showToast('Payment Successful!', `Paid ₹${payingBooking.course?.fee || payingBooking.teacher?.fees || 50} successfully.`, 'success');
         setPayModalOpen(false);
         setBookings(prev =>
           prev.map(b => b._id === payingBooking._id ? { ...b, paymentStatus: 'Paid', paymentMethod: payMethod.toUpperCase() } : b)
@@ -250,7 +250,7 @@ export const StudentBookings = () => {
                           className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-emerald-500/10 flex items-center justify-center gap-1.5"
                         >
                           <FiDollarSign className="w-3.5 h-3.5" />
-                          <span>Pay Fee (${booking.course?.fee || booking.teacher?.fees || 50})</span>
+                          <span>Pay Fee (₹{booking.course?.fee || booking.teacher?.fees || 50})</span>
                         </button>
                       )}
                       <span className="text-[9px] text-slate-400 font-bold">
@@ -318,7 +318,7 @@ export const StudentBookings = () => {
                   <div className="pt-2 flex justify-between items-center text-sm font-extrabold border-t border-slate-200/50 dark:border-slate-800/50 mt-2">
                     <span className="text-slate-600 dark:text-slate-450">Total Amount:</span>
                     <span className="text-primary dark:text-accent text-lg">
-                      ${payingBooking.course?.fee || payingBooking.teacher?.fees || 50}
+                      ₹{payingBooking.course?.fee || payingBooking.teacher?.fees || 50}
                     </span>
                   </div>
                 </div>

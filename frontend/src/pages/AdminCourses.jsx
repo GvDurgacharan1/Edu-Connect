@@ -124,7 +124,7 @@ export const AdminCourses = () => {
 
               <div className="flex justify-between items-center mt-4 pt-3 border-t border-slate-200/40 text-xs">
                 <span className="font-black text-slate-800 dark:text-white">
-                  ${course.fee}
+                  ₹{course.fee}
                 </span>
 
                 <button

@@ -222,7 +222,7 @@ export const StudentSearchTeachers = () => {
 
             <div className="grid grid-cols-2 gap-2">
               <div className="space-y-1">
-                <label className="font-bold text-slate-600 dark:text-slate-400">Min Fee ($)</label>
+                <label className="font-bold text-slate-600 dark:text-slate-400">Min Fee (₹)</label>
                 <input
                   type="number"
                   value={minFee}
@@ -232,7 +232,7 @@ export const StudentSearchTeachers = () => {
                 />
               </div>
               <div className="space-y-1">
-                <label className="font-bold text-slate-600 dark:text-slate-400">Max Fee ($)</label>
+                <label className="font-bold text-slate-600 dark:text-slate-400">Max Fee (₹)</label>
                 <input
                   type="number"
                   value={maxFee}
@@ -386,7 +386,7 @@ export const StudentSearchTeachers = () => {
                       </span>
                       <span className="flex items-center gap-1.5 justify-end">
                         <FiDollarSign className="text-primary w-3.5 h-3.5" />
-                        <span>Rate: ${teacher.fees}/hr</span>
+                        <span>Rate: ₹{teacher.fees}/hr</span>
                       </span>
                     </div>
 
@@ -499,7 +499,7 @@ export const StudentSearchTeachers = () => {
                       >
                         <option value="">No Course (Custom mentorship request)</option>
                         {coursesList.map(c => (
-                          <option key={c._id} value={c._id}>{c.title} (${c.fee})</option>
+                          <option key={c._id} value={c._id}>{c.title} (₹{c.fee})</option>
                         ))}
                       </select>
                     </div>
