@@ -1,0 +1,102 @@
+name: EduConnect E2E Test Suite and Reports CI
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master, dev ]
+  workflow_dispatch:
+
+jobs:
+  code-quality-and-audit:
+    name: Run Linters & Audits
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Root Dependencies
+        run: npm install
+
+      - name: Audit Backend Dependencies
+        run: |
+          cd backend
+          npm audit --audit-level=critical || true
+
+      - name: Lint Frontend Code
+        run: |
+          cd frontend
+          npm install
+          npm run lint || true
+
+  selenium-web-tests:
+    name: Run Selenium E2E Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Selenium Test Suite Dependencies
+        run: |
+          cd selenium-tests
+          npm install
+
+      - name: Run Selenium E2E Tests (Simulation Mode)
+        run: |
+          cd selenium-tests
+          npm test
+
+      - name: Generate Selenium E2E Excel Report (300 Test Cases)
+        run: |
+          cd selenium-tests
+          npm run generate-report
+
+      - name: Upload Selenium Test Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-test-report
+          path: selenium-tests/selenium-test-report.xlsx
+
+  appium-mobile-tests:
+    name: Run Appium E2E Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Appium Test Suite Dependencies
+        run: |
+          cd appium-tests
+          npm install
+
+      - name: Run Appium E2E Tests (Simulation Mode)
+        run: |
+          cd appium-tests
+          npm test
+
+      - name: Generate Appium E2E Excel Report (300 Test Cases)
+        run: |
+          cd appium-tests
+          npm run generate-report
+
+      - name: Upload Appium Test Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-test-report
+          path: appium-tests/appium-test-report.xlsx
