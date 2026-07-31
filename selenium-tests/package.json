@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "node tests/login-tests.js",
+    "test": "mocha tests/**/*.test.js --timeout 30000 --reporter mochawesome --reporter-options reportDir=reports,reportFilename=index",
     "generate-report": "node generate-report.js"
   },
   "dependencies": {
     "selenium-webdriver": "^4.19.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "mocha": "^10.4.0",
+    "chai": "^4.4.1",
+    "winston": "^3.13.0",
+    "mochawesome": "^7.1.3"
   }
 }

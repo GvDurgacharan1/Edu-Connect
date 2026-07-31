@@ -1,13 +1,13 @@
 {
-  "name": "appium-tests",
+  "name": "load-tests",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "test": "mocha tests/**/*.test.js --timeout 30000 --reporter mochawesome --reporter-options reportDir=reports,reportFilename=index",
+    "test": "mocha tests/**/*.test.js --timeout 45000 --reporter mochawesome --reporter-options reportDir=reports,reportFilename=index",
     "generate-report": "node generate-report.js"
   },
   "dependencies": {
-    "webdriverio": "^8.32.0",
+    "axios": "^1.6.8",
     "xlsx": "^0.18.5",
     "mocha": "^10.4.0",
     "chai": "^4.4.1",

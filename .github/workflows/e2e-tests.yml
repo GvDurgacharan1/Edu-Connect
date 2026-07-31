@@ -51,7 +51,7 @@ jobs:
           cd selenium-tests
           npm install
 
-      - name: Run Selenium E2E Tests (Simulation Mode)
+      - name: Run Selenium E2E Tests
         run: |
           cd selenium-tests
           npm test
@@ -66,6 +66,12 @@ jobs:
         with:
           name: selenium-test-report
           path: selenium-tests/selenium-test-report.xlsx
+
+      - name: Upload Selenium HTML Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-html-report
+          path: selenium-tests/reports/
 
   appium-mobile-tests:
     name: Run Appium E2E Suite
@@ -84,7 +90,7 @@ jobs:
           cd appium-tests
           npm install
 
-      - name: Run Appium E2E Tests (Simulation Mode)
+      - name: Run Appium E2E Tests
         run: |
           cd appium-tests
           npm test
@@ -99,3 +105,87 @@ jobs:
         with:
           name: appium-test-report
           path: appium-tests/appium-test-report.xlsx
+
+      - name: Upload Appium HTML Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: appium-html-report
+          path: appium-tests/reports/
+
+  vulnerability-tests:
+    name: Run Vulnerability E2E Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Vulnerability Test Suite Dependencies
+        run: |
+          cd vulnerability-tests
+          npm install
+
+      - name: Run Vulnerability E2E Tests
+        run: |
+          cd vulnerability-tests
+          npm test
+
+      - name: Generate Vulnerability E2E Excel Report (300 Test Cases)
+        run: |
+          cd vulnerability-tests
+          npm run generate-report
+
+      - name: Upload Vulnerability Test Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vulnerability-test-report
+          path: vulnerability-tests/vulnerability-test-report.xlsx
+
+      - name: Upload Vulnerability HTML Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vulnerability-html-report
+          path: vulnerability-tests/reports/
+
+  load-tests:
+    name: Run Load Performance Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Load Test Suite Dependencies
+        run: |
+          cd load-tests
+          npm install
+
+      - name: Run Load E2E Tests
+        run: |
+          cd load-tests
+          npm test
+
+      - name: Generate Load E2E Excel Report (300 Test Cases)
+        run: |
+          cd load-tests
+          npm run generate-report
+
+      - name: Upload Load Test Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-test-report
+          path: load-tests/load-test-report.xlsx
+
+      - name: Upload Load HTML Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: load-html-report
+          path: load-tests/reports/

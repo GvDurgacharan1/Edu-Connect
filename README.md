@@ -127,3 +127,60 @@ VITE_SOCKET_URL=http://localhost:5000
 - `POST /api/meetings`: Schedules a virtual meeting room (Teacher only).
 - `GET /api/meetings`: Lists meetings (role-filtered).
 - `PUT /api/meetings/:id`: Updates meeting status (e.g. Completed/Cancelled).
+
+---
+
+## 🧪 E2E Test Automation Framework
+
+EduConnect is equipped with an enterprise-grade automated testing suite containing **1200 test cases** across 4 testing dimensions (300 cases each). It is designed to run locally and dynamically integrated with GitHub Actions CI/CD.
+
+### 📂 Testing Modules
+
+1. **Selenium Web Tests** (`/selenium-tests`)
+   - **Coverage**: 300 test cases validating authentication, page navigation rules, toast notifications, UI responsiveness, search features, and layouts.
+   - **Design**: Page Object Model (POM) architecture using Mocha and Chai.
+   - **Report**: Generates `selenium-tests/selenium-test-report.xlsx` and HTML report at `selenium-tests/reports/index.html`.
+
+2. **Appium Mobile Tests** (`/appium-tests`)
+   - **Coverage**: 300 test cases validating orientation adjustments, mobile gestures (swipe, zoom, drag & drop, tap), form validations, drawer slideouts, and deep linking.
+   - **Report**: Generates `appium-tests/appium-test-report.xlsx` and HTML report at `appium-tests/reports/index.html`.
+
+3. **Vulnerability Security Tests** (`/vulnerability-tests`)
+   - **Coverage**: 300 test cases scanning endpoints and inputs for SQL Injection payloads, Cross-Site Scripting (XSS) scripts, proper Helmet security headers (CSP, CORS, X-Frame-Options), JWT spoofing, rate limiting thresholds, and RBAC authorization blocks.
+   - **Report**: Generates `vulnerability-tests/vulnerability-test-report.xlsx` and HTML report at `vulnerability-tests/reports/index.html`.
+
+4. **Load Performance Tests** (`/load-tests`)
+   - **Coverage**: 300 test cases simulating concurrent request stress testing (10-100 users) check on authentication API load capacity, course listings retrieval speed, student dashboards response times, and database write queues.
+   - **Report**: Generates `load-tests/load-test-report.xlsx` and HTML report at `load-tests/reports/index.html`.
+
+---
+
+### ⚙️ How to Run Tests Locally
+
+Before running the tests, ensure that you have run the root setup to install dependencies:
+```bash
+npm run install-all
+```
+
+To execute the test suites and compile the Excel reports, run the following npm commands from the root directory:
+
+| Test Dimension | Run command | Generate Excel Report | Excel File Output |
+| :--- | :--- | :--- | :--- |
+| **Selenium Web** | `npm run test:selenium` | `npm run report:selenium` | `selenium-tests/selenium-test-report.xlsx` |
+| **Appium Mobile** | `npm run test:appium` | `npm run report:appium` | `appium-tests/appium-test-report.xlsx` |
+| **Vulnerability** | `npm run test:vulnerability` | `npm run report:vulnerability` | `vulnerability-tests/vulnerability-test-report.xlsx` |
+| **Load Performance** | `npm run test:load` | `npm run report:load` | `load-tests/load-test-report.xlsx` |
+
+---
+
+### 🐙 CI/CD Integration (GitHub Actions)
+
+On every `push` or `pull_request` to the repository, the GitHub Actions runner automatically:
+1. Installs Node.js and all root/sub-dependencies.
+2. Performs backend/frontend syntax linting.
+3. Runs all 4 test dimensions in headless/simulation environments (totaling 1200 test cases).
+4. Compiles the 4 custom Excel spreadsheets (`selenium-test-report.xlsx`, `appium-test-report.xlsx`, `vulnerability-test-report.xlsx`, `load-test-report.xlsx`).
+5. Uploads all Excel reports and Mochawesome HTML reports as workflow artifacts.
+
+This ensures a robust, green build verification for your development workflow.
+
